@@ -1,4 +1,3 @@
-<!-- public/result.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,10 +5,51 @@
   <title>공룡의 조언</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url('result-bg.png'); /* 너가 원하는 배경으로 변경 */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #advisorImg {
+      width: 180px;
+      margin-bottom: 20px;
+    }
+
+    #answer {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 320px;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #answer::before {
+      content: "";
+      position: absolute;
+      bottom: -12px;
+      left: 30px;
+      border-width: 12px;
+      border-style: solid;
+      border-color: rgba(255,255,255,0.9) transparent transparent transparent;
+    }
+  </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6 bg-blue-100">
-  <img id="advisorImg" class="w-40 mb-4 hidden" />
-  <div id="answer" class="text-center max-w-md bg-white/80 rounded-lg p-4 shadow-md whitespace-pre-line hidden"></div>
+<body>
+  <img id="advisorImg" class="hidden" alt="공룡 조언자" />
+  <div id="answer" class="hidden"></div>
 
   <script src="result.js"></script>
 </body>
