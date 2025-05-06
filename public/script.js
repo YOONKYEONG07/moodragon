@@ -3,7 +3,14 @@ let selectedType = 'T';
 // T/F 유형 선택
 function setType(type) {
   selectedType = type;
+  // 선택된 이미지에만 강조 효과
+  document.querySelectorAll('.type-selector').forEach(el => {
+    el.classList.remove('selected');
+  });
+  const selectedImg = document.querySelector(`img[onclick="setType('${type}')"]`);
+  if (selectedImg) selectedImg.classList.add('selected');
 }
+
 
 // 페이지 로딩 시 시간대에 따라 배경 설정
 window.addEventListener('DOMContentLoaded', () => {
@@ -24,26 +31,34 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // GPT에 질문 보내기
 async function submitQuestion() {
-  const input = document.getElementById('userInput').value;
-  const answerDiv = document.getElementById('answer');
+  const input = document.getElementById("userInput").value.trim();
+  if (!selectedType || !input) {
+    alert("고민을 입력하고 공룡을 선택해 주세요!");
+    return;
+  }
 
-  // 공룡알 부화 애니메이션 (선택사항)
-  const egg = document.getElementById('egg');
-  if (egg) egg.src = 'egg-hatching.gif';
+  const advisorImg = document.getElementById("advisorImg");
+  const answerBox = document.getElementById("answer");
 
-  // GPT 호출
   try {
-    const response = await fetch('/api/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input, type: selectedType }),
     });
 
     const data = await response.json();
-    answerDiv.innerText = data.answer;
 
-  } catch (error) {
-    console.error("요청 실패:", error);
-    answerDiv.innerText = "GPT 응답 중 문제가 발생했어 😢";
+    // 공룡 조언자 이미지 표시
+    advisorImg.src = selectedType === "T" ? "adviceT.png" : "adviceF.png";
+    advisorImg.classList.remove("hidden");
+
+    // GPT 응답 표시
+    answerBox.textContent = data.answer;
+    answerBox.classList.remove("hidden");
+
+  } catch (err) {
+    answerBox.textContent = "🐣 공룡이 고민하다가 잠들었어요. 다시 시도해 주세요!";
+    answerBox.classList.remove("hidden");
   }
 }
