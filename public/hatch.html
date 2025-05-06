@@ -1,19 +1,48 @@
-<!-- public/hatch.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>부화 중...</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-blue-100">
-  <img src="generate.gif" alt="부화 중..." class="w-60 mb-4" />
-  <p class="text-lg font-semibold text-gray-700">공룡이 고민을 듣고 있어요...</p>
+  <title>공룡 부화 중...</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
 
+    .full-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 비율 유지하면서 꽉 채움 */
+      z-index: -1;
+    }
+
+    .message {
+      position: absolute;
+      bottom: 50px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #555;
+      font-family: 'Arial', sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- 전체 배경을 채우는 GIF -->
+  <img src="generate.gif" alt="부화 중..." class="full-bg" />
+
+  <!-- 메시지 (선택사항) -->
+  <div class="message">공룡이 고민을 듣고 있어요...</div>
+
+  <!-- 6.6초 후 자동 이동 -->
   <script>
-  setTimeout(() => {
-    window.location.href = "result.html";
-  }, 6600); // 6.6초 후에 넘어감
-</script>
+    setTimeout(() => {
+      window.location.href = "result.html";
+    }, 6600);
+  </script>
 </body>
 </html>
