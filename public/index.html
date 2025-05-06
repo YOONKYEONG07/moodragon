@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>공룡알 고민상담소</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-6">
+  <img src="egg.png" alt="공룡알" id="egg" class="w-40 h-40 mb-4" />
+  
+  <textarea id="userInput" placeholder="고민을 말해줘..." class="w-80 p-2 border rounded mb-4"></textarea>
+
+  <div class="flex gap-4 mb-4">
+    <button onclick="setType('T')" class="px-4 py-2 bg-blue-400 text-white rounded">T형 답변</button>
+    <button onclick="setType('F')" class="px-4 py-2 bg-pink-400 text-white rounded">F형 답변</button>
+  </div>
+
+  <button onclick="submitQuestion()" class="px-4 py-2 bg-green-500 text-white rounded">고민 말하기</button>
+
+  <div id="answer" class="mt-6 text-center max-w-md"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
