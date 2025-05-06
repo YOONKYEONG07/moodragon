@@ -1,0 +1,19 @@
+<!-- public/hatch.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>부화 중...</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-blue-100">
+  <img src="generate.gif" alt="부화 중..." class="w-60 mb-4" />
+  <p class="text-lg font-semibold text-gray-700">공룡이 고민을 듣고 있어요...</p>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "result.html";
+    }, 3000); // 3초 후 결과 페이지로 이동
+  </script>
+</body>
+</html>
