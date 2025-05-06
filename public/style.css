@@ -1,8 +1,72 @@
+/* 전체 배경 (시간대별 배경 이미지는 script.js에서 설정됨) */
 body {
-    background-image: url('wallpaper.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    color: #222;
+    text-align: center;
     min-height: 100vh;
+    background-size: cover;
+    background-repeat: repeat-x; /* 배경 반복 허용 */
+    animation: moveSky 60s linear infinite; /* 하늘 흐름 애니메이션 */
+    transition: background-image 1s ease-in-out;
+  }
+  
+  
+  /* 공룡알 이미지 */
+  #egg {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 1rem;
+  }
+  
+  /* 텍스트 입력창 */
+  textarea {
+    width: 90%;
+    max-width: 320px;
+    height: 100px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    font-size: 16px;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* 버튼 공통 */
+  button {
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: transform 0.1s ease;
+  }
+  
+  /* 버튼 효과 */
+  button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* GPT 답변창 */
+  #answer {
+    margin-top: 1.5rem;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+  
+  /* 모바일 반응형 여백 */
+  @media (max-width: 500px) {
+    textarea {
+      font-size: 14px;
+    }
+  
+    #answer {
+      font-size: 0.95rem;
+    }
   }
   
