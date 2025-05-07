@@ -22,14 +22,16 @@ function submitQuestion() {
 }
 
 // ✅ 페이지 로딩 시 배경을 wallpaper.png로 고정 설정 & 화면 비율 맞추기
-
 window.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
+  const isMainPage = window.location.pathname.includes("index.html") || window.location.pathname === "/" || window.location.pathname === "/index";
 
-  body.style.backgroundImage = "url('wallpaper.png')";
-  body.style.backgroundSize = "contain";
-  body.style.backgroundPosition = "center";
-  body.style.backgroundRepeat = "no-repeat";
-  body.style.backgroundColor = "#8bdaff";
-  body.style.minHeight = "100vh";
+  if (isMainPage) {
+    body.style.backgroundImage = "url('wallpaper.png')";
+    body.style.backgroundSize = "contain";
+    body.style.backgroundPosition = "center";
+    body.style.backgroundRepeat = "no-repeat";
+    body.style.backgroundColor = "transparent";
+    body.style.minHeight = "100vh";
+  }
 });
