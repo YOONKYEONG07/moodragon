@@ -45,12 +45,18 @@
   <img id="talismanImage" src="" alt="" class="mx-auto hidden" />
 
   <script>
-    function showTalisman(type) {
-      const img = document.getElementById("talismanImage");
-      img.src = `talisman_${type}.png`; // 예: talisman_행운.png
-      img.alt = `${type} 부적`;
-      img.classList.remove("hidden");
-    }
-  </script>
+  function showTalisman(type) {
+    const img = document.getElementById("talismanImage");
+    const imageMap = {
+      '행운': 'talisman_luck.png',
+      '건강': 'talisman_health.png',
+      '성적': 'talisman_grades.png',
+      '금전': 'talisman_money.png'
+    };
+    img.src = imageMap[type];
+    img.alt = `${type} 부적`;
+    img.classList.remove("hidden");
+  }
+</script>
 </body>
 </html>
