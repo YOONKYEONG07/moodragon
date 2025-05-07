@@ -21,17 +21,11 @@ function submitQuestion() {
   window.location.href = "hatch.html";
 }
 
-// ✅ 페이지 로딩 시 시간대에 따라 배경 설정
+// ✅ 페이지 로딩 시 배경을 wallpaper.png로 고정 설정
 window.addEventListener('DOMContentLoaded', () => {
-  const hour = new Date().getHours();
   const body = document.body;
 
-  if (hour >= 6 && hour <= 18) {
-    body.style.backgroundImage = "url('morning.png')";
-  } else {
-    body.style.backgroundImage = "url('night.png')";
-  }
-
+  body.style.backgroundImage = "url('wallpaper.png')";
   body.style.backgroundSize = "cover";
   body.style.backgroundPosition = "center";
   body.style.backgroundRepeat = "no-repeat";
