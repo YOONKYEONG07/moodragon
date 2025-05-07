@@ -21,13 +21,15 @@ function submitQuestion() {
   window.location.href = "hatch.html";
 }
 
-// ✅ 페이지 로딩 시 배경을 wallpaper.png로 고정 설정
+// ✅ 페이지 로딩 시 배경을 wallpaper.png로 고정 설정 & 화면 비율 맞추기
+
 window.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
 
   body.style.backgroundImage = "url('wallpaper.png')";
-  body.style.backgroundSize = "cover";
+  body.style.backgroundSize = "contain";
   body.style.backgroundPosition = "center";
   body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundColor = "#8bdaff";
   body.style.minHeight = "100vh";
 });
