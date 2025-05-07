@@ -46,13 +46,14 @@
 
   <script>
   function showTalisman(type) {
-    const img = document.getElementById("talismanImage");
     const imageMap = {
       '행운': 'talisman_luck.png',
       '건강': 'talisman_health.png',
       '성적': 'talisman_grades.png',
       '금전': 'talisman_money.png'
     };
+
+    const img = document.getElementById("talismanImage");
     img.src = imageMap[type];
     img.alt = `${type} 부적`;
     img.classList.remove("hidden");
