@@ -19,7 +19,7 @@ app.post('/api/ask', async (req, res) => {
   const { input, type } = req.body;
   const stylePrompt = type === 'T'
   ? "문제의 핵심을 잘 짚어서, 똑똑하고 현실적인 조언을 해줘. 말투는 단호하지만 친절하게. 이모지도 약간 섞어줘. 질문: "
-  : "친근하고 귀엽고 따뜻한 말투로 답해줘. 이모지(😊, 🧡 등)도 섞고, 친구처럼 공감해줘. 질문: ";
+  : "친근하고 귀엽고 따뜻한 말투로 답해줘. 이모지(😊, 🔮 ,💜 등)도 섞고, 친구처럼 공감해줘. 질문: ";
 
   try {
     const chatCompletion = await openai.chat.completions.create({
