@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>오늘의 부적</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #fef9e7;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    .talisman-btn {
+      padding: 12px 20px;
+      margin: 10px;
+      background-color: #ffd966;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .talisman-btn:hover {
+      transform: scale(1.05);
+    }
+
+    #talismanImage {
+      margin-top: 30px;
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="text-2xl font-bold mb-4">오늘의 부적을 선택해보세요!</h1>
+
+  <div>
+    <button class="talisman-btn" onclick="showTalisman('행운')">행운</button>
+    <button class="talisman-btn" onclick="showTalisman('건강')">건강</button>
+    <button class="talisman-btn" onclick="showTalisman('성적')">성적</button>
+    <button class="talisman-btn" onclick="showTalisman('금전')">금전</button>
+  </div>
+
+  <img id="talismanImage" src="" alt="" class="mx-auto hidden" />
+
+  <script>
+    function showTalisman(type) {
+      const img = document.getElementById("talismanImage");
+      img.src = `talisman_${type}.png`; // 예: talisman_행운.png
+      img.alt = `${type} 부적`;
+      img.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
