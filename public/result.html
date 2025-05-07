@@ -44,11 +44,24 @@
       border-color: rgba(255,255,255,0.9) transparent transparent transparent;
     }
   </style>
+  
 </head>
 <body>
   <img id="advisorImg" class="hidden" alt="공룡 조언자" />
   <div id="answer" class="hidden"></div>
 
   <script src="result.js"></script>
+  <button onclick="goToTalisman()" class="mt-6 px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
+  오늘의 부적 받으러가기
+</button>
+
+<script>
+  function goToTalisman() {
+    window.location.href = "talisman.html";
+  }
+</script>
+
 </body>
 </html>
+
+
