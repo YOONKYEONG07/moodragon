@@ -8,15 +8,16 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+     overflow: hidden;
     }
 
     .full-bg {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 비율 유지하면서 꽉 채움 */
+      object-fit: cover;
       z-index: -1;
     }
 
@@ -32,17 +33,25 @@
   </style>
 </head>
 <body>
-  <!-- 전체 배경을 채우는 GIF -->
-  <img src="generate.gif" alt="부화 중..." class="full-bg" />
-
-  <!-- 메시지 (선택사항) -->
+  <!-- GIF는 JS로 삽입 -->
+  <img id="hatchGif" class="full-bg" alt="부화 중..." />
   <div class="message">공룡이 고민을 듣고 있어요...</div>
 
-  <!-- 6.6초 후 자동 이동 -->
   <script>
+    const type = localStorage.getItem("userType");
+    const gif = document.getElementById("hatchGif");
+
+    if (type === "T") {
+      gif.src = "generateT.gif";
+    } else if (type === "F") {
+      gif.src = "generateF.gif";
+    } else {
+      gif.src = "generate.gif"; // fallback
+    }
+
     setTimeout(() => {
       window.location.href = "result.html";
-    }, 6600);
+    }, 6600); // GIF 길이에 맞게
   </script>
 </body>
 </html>
