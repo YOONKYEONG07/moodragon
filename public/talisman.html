@@ -26,6 +26,11 @@
       transform: scale(1.05);
     }
 
+    .talisman-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     #talismanImage {
       margin-top: 30px;
       max-width: 300px;
@@ -44,33 +49,50 @@
 
   <img id="talismanImage" src="" alt="" class="mx-auto hidden" />
 
-  <button id="downloadBtn" onclick="downloadImage()" class="talisman-btn hidden mt-4">이미지 저장하기
+  <button id="downloadBtn" onclick="downloadImage()" class="talisman-btn hidden mt-4">
+    이미지 저장하기
   </button>
-  
+
   <script>
-  function showTalisman(type) {
-    const img = document.getElementById("talismanImage");
-    const btn = document.getElementById("downloadBtn");
+    const imageMap = {
+      '행운': 'talisman_luck.png',
+      '건강': 'talisman_health.png',
+      '성적': 'talisman_grades.png',
+      '금전': 'talisman_money.png'
+    };
 
-    const filename = `talisman_${type}.png`;
-    img.src = filename;
-    img.alt = `${type} 부적`;
+    let alreadyChosen = false;
 
-    img.classList.remove("hidden");
-    btn.classList.remove("hidden");
-  }
+    function showTalisman(type) {
+      if (alreadyChosen) return;
 
-  function downloadImage() {
-    const img = document.getElementById("talismanImage");
-    const link = document.createElement("a");
+      const img = document.getElementById("talismanImage");
+      const btn = document.getElementById("downloadBtn");
 
-    link.href = img.src;
-    link.download = img.alt + ".png"; // 파일명 예: "행운 부적.png"
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+      img.src = imageMap[type];
+      img.alt = `${type} 부적`;
 
-</script>
+      img.classList.remove("hidden");
+      btn.classList.remove("hidden");
+
+      // 버튼들 비활성화 처리
+      const buttons = document.querySelectorAll(".talisman-btn");
+      buttons.forEach(button => {
+        button.disabled = true;
+      });
+
+      alreadyChosen = true;
+    }
+
+    function downloadImage() {
+      const img = document.getElementById("talismanImage");
+      const link = document.createElement("a");
+      link.href = img.src;
+      link.download = img.alt + ".png";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
 </body>
 </html>
