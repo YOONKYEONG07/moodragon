@@ -41,18 +41,19 @@
     <textarea id="userInput" placeholder="너의 일상/고민을 이야기해 줘🔮"
       class="w-80 p-2 border rounded mb-4 resize-none"></textarea>
 
-    <!-- 공룡 선택 클릭 영역 -->
+    <!-- 공룡 클릭 선택 영역 -->
     <div class="relative w-full h-[500px]">
-      <!-- F 수룡이 쪽 클릭 -->
+      <!-- F 수룡 클릭 영역 -->
       <div id="FZone" onclick="setType('F')"
-        class="absolute cursor-pointer"
-        style="top: 45%; left: 20%; width: 100px; height: 100px;"></div>
-
-      <!-- T 수룡이 쪽 클릭 -->
+        class="absolute cursor-pointer selected-zone"
+        style="top: 30%; left: 15%; width: 130px; height: 250px;"></div>
+    
+      <!-- T 수룡 클릭 영역 -->
       <div id="TZone" onclick="setType('T')"
         class="absolute cursor-pointer"
-        style="top: 45%; left: 70%; width: 100px; height: 100px;"></div>
+        style="top: 40%; left: 75%; width: 150px; height: 250px;"></div>
     </div>
+
 
     <!-- 고민 말하기 버튼 -->
     <button onclick="submitQuestion()"
