@@ -5,19 +5,96 @@
   <title>공룡알 고민상담소</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ style은 head 안에 들어가야 함 -->
+  <style>
+    @keyframes moveRight {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(100vw);
+      }
+    }
+
+    .moving-dragon {
+      animation: moveRight 6s linear forwards;
+    }
+
+    .type-selector.selected {
+      border: 4px solid #6366f1;
+      border-radius: 12px;
+    }
+  </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-6">
-  
-  
-  <textarea id="userInput" placeholder="너의 일상/고민을 이야기해 줘🔮" class="w-80 p-2 border rounded mb-4"></textarea>
+<body>
+  <div id="mainUI" class="flex flex-col items-center justify-center min-h-screen p-6">
+    <textarea id="userInput" placeholder="너의 일상/고민을 이야기해 줘🔮" class="w-80 p-2 border rounded mb-4"></textarea>
 
-  <div class="flex gap-6 mb-4">
-  <img src="T.png" alt="T형" class="type-selector w-28 cursor-pointer" onclick="setType('T')" />
-  <img src="F.png" alt="F형" class="type-selector w-28 cursor-pointer" onclick="setType('F')" />
-</div>
+    <div class="flex gap-6 mb-4">
+      <img src="T.png" alt="T형" class="type-selector w-28 cursor-pointer" onclick="setType('T')" />
+      <img src="F.png" alt="F형" class="type-selector w-28 cursor-pointer" onclick="setType('F')" />
+    </div>
 
-  <button onclick="submitQuestion()" class="px-4 py-2 bg-purple-500 text-white rounded">고민 말하기</button>
+    <button onclick="submitQuestion()" class="px-4 py-2 bg-purple-500 text-white rounded">고민 말하기</button>
+  </div>
 
-  <script src="script.js"></script>
+  <!-- 로딩 이미지 -->
+  <div id="loadingOverlay" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+    <img id="loadingGif" src="" class="w-60" />
+    <p class="mt-4 text-xl text-gray-600">공룡이 고민을 듣고 있어요...</p>
+  </div>
+
+  <script>
+    let selectedType = null;
+
+    function setType(type) {
+      selectedType = type;
+      document.querySelectorAll('.type-selector').forEach(el => {
+        el.classList.remove('selected');
+      });
+      const selectedImg = document.querySelector(`img[onclick="setType('${type}')"]`);
+      if (selectedImg) selectedImg.classList.add('selected');
+    }
+
+    async function submitQuestion() {
+      const input = document.getElementById("userInput").value.trim();
+      if (!selectedType || !input) {
+        alert("고민을 입력하고 공룡을 선택해 주세요!");
+        return;
+      }
+
+      document.getElementById("mainUI").classList.add("hidden");
+
+      const gifEl = document.getElementById("loadingGif");
+      gifEl.src = selectedType === 'F' ? 'generateF.png' : 'generateT.png';
+      gifEl.classList.remove("moving-dragon");
+      void gifEl.offsetWidth;
+      gifEl.classList.add("moving-dragon");
+
+      document.getElementById("loadingOverlay").classList.remove("hidden");
+
+      try {
+        const res = await fetch("/api/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ input, type: selectedType })
+        });
+
+        const data = await res.json();
+
+        localStorage.setItem("userInput", input);
+        localStorage.setItem("userType", selectedType);
+        localStorage.setItem("gptAnswer", data.answer);
+
+        window.location.href = "result.html";
+      } catch (err) {
+        alert("GPT 응답 중 오류가 발생했어요 😢");
+        console.error(err);
+        document.getElementById("loadingOverlay").classList.add("hidden");
+        document.getElementById("mainUI").classList.remove("hidden");
+      }
+    }
+  </script>
 </body>
 </html>
