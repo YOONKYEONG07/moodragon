@@ -6,24 +6,24 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
   <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: #8bdaff; /* 배경 색상으로 변경 */
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #8bdaff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
     #advisorImg {
       width: 180px;
       margin-bottom: 20px;
     }
 
-    #answer {
+    #gptAnswer {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       padding: 16px;
@@ -34,7 +34,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    #answer::before {
+    #gptAnswer::before {
       content: "";
       position: absolute;
       bottom: -12px;
@@ -44,24 +44,34 @@
       border-color: rgba(255,255,255,0.9) transparent transparent transparent;
     }
   </style>
-  
 </head>
 <body>
   <img id="advisorImg" class="hidden" alt="공룡 조언자" />
-  <div id="answer" class="hidden"></div>
+  <div id="gptAnswer" class="hidden"></div>
 
-  <script src="result.js"></script>
   <button onclick="goToTalisman()" class="mt-6 px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
-  오늘의 부적 받으러가기
-</button>
+    오늘의 부적 받으러가기
+  </button>
 
-<script>
-  function goToTalisman() {
-    window.location.href = "talisman.html";
-  }
-</script>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const answer = localStorage.getItem("gptAnswer");
+      const type = localStorage.getItem("userType");
 
+      if (answer) {
+        document.getElementById("gptAnswer").textContent = answer;
+        document.getElementById("gptAnswer").classList.remove("hidden");
+        document.getElementById("advisorImg").src = type === 'F' ? "adviceF.png" : "adviceT.png";
+        document.getElementById("advisorImg").classList.remove("hidden");
+      } else {
+        document.getElementById("gptAnswer").textContent = "답변을 불러오는 데 실패했어요 😢";
+        document.getElementById("gptAnswer").classList.remove("hidden");
+      }
+    });
+
+    function goToTalisman() {
+      window.location.href = "talisman.html";
+    }
+  </script>
 </body>
 </html>
-
-
