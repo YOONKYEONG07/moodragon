@@ -6,76 +6,76 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
   <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: 'Arial', sans-serif;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #8bdaff;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-  #answer {
-    position: absolute;
-    top: 40px;
-    right: 40px;
-    background: rgba(255, 255, 255, 0.7); /* 더 투명하게 */
-    border-radius: 18px;
-    padding: 24px 28px;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    max-width: 360px; /* 크기 키움 */
-    text-align: left;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  }
+    #advisorImg {
+      position: absolute;
+      left: 100px;
+      bottom: 0;
+      width: 350px;
+    }
 
-  #answer::before {
-    content: "";
-    position: absolute;
-    top: 26px;
-    left: -22px;
-    width: 0;
-    height: 0;
-    border-top: 14px solid transparent;
-    border-bottom: 14px solid transparent;
-    border-right: 22px solid rgba(255,255,255,0.7); /* 말풍선 색상과 맞춤 */
-  }
-</style>
+    #answer {
+      position: absolute;
+      right: 100px;
+      top: 120px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 20px;
+      font-size: 1rem;
+      line-height: 1.7;
+      width: 300px;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
+    #goTalismanBtn {
+      position: absolute;
+      right: 100px;
+      bottom: 60px;
+    }
+  </style>
 </head>
 <body>
+  <img id="advisorImg" class="hidden" alt="공룡 조언자" />
   <div id="answer" class="hidden"></div>
 
-  <button onclick="goToTalisman()" class="mt-6 px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
+  <button id="goTalismanBtn"
+    onclick="goToTalisman()"
+    class="px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
     오늘의 부적 받으러가기
   </button>
 
   <script>
-    function goToTalisman() {
-      window.location.href = "talisman.html";
-    }
-
     window.addEventListener("DOMContentLoaded", () => {
       const answer = localStorage.getItem("gptAnswer");
       const type = localStorage.getItem("userType");
 
-      const bgImg = type === 'F' ? "adviceF.png" : "adviceT.png";
-      document.body.style.backgroundImage = `url('${bgImg}')`;
-
-      const answerBox = document.getElementById("answer");
       if (answer) {
-        answerBox.textContent = answer;
+        document.getElementById("gptAnswer")?.remove(); // 혹시 이전 잔재 제거
+        document.getElementById("answer").textContent = answer;
+        document.getElementById("advisorImg").src = type === 'F' ? "adviceF.png" : "adviceT.png";
       } else {
-        answerBox.textContent = "답변을 불러오는 데 실패했어요 😢";
+        document.getElementById("answer").textContent = "답변을 불러오는 데 실패했어요 😢";
       }
-      answerBox.classList.remove("hidden");
+
+      document.getElementById("answer").classList.remove("hidden");
+      document.getElementById("advisorImg").classList.remove("hidden");
     });
+
+    function goToTalisman() {
+      window.location.href = "talisman.html";
+    }
   </script>
 </body>
 </html>
