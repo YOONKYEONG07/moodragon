@@ -28,10 +28,18 @@
       animation: moveRight 6s linear forwards;
     }
 
-    .selected-zone {
-      outline: 3px dashed #6366f1;
+    @keyframes sparkle {
+      0%   { box-shadow: 0 0 0px #ffd700; }
+      50%  { box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700; }
+      100% { box-shadow: 0 0 0px #ffd700; }
+    }
+    
+    .sparkle-effect {
+      animation: sparkle 1.5s ease-in-out;
       border-radius: 12px;
     }
+      
+
   </style>
 </head>
 <body>
@@ -72,17 +80,24 @@
 
     function setType(type) {
       selectedType = type;
-
-      // 시각적 선택 효과
-      document.getElementById("FZone").classList.remove("selected-zone");
-      document.getElementById("TZone").classList.remove("selected-zone");
-
-      if (type === "F") {
-        document.getElementById("FZone").classList.add("selected-zone");
-      } else {
-        document.getElementById("TZone").classList.add("selected-zone");
-      }
+    
+      const FZone = document.getElementById("FZone");
+      const TZone = document.getElementById("TZone");
+    
+      // 효과 초기화
+      FZone.classList.remove("sparkle-effect");
+      TZone.classList.remove("sparkle-effect");
+    
+      // 클릭된 쪽에 반짝이 효과 일시 적용
+      const zone = type === 'F' ? FZone : TZone;
+      zone.classList.add("sparkle-effect");
+    
+      // 효과가 끝나면 자동 제거 (1.5초 뒤)
+      setTimeout(() => {
+        zone.classList.remove("sparkle-effect");
+      }, 1500);
     }
+
 
     async function submitQuestion() {
       const input = document.getElementById("userInput").value.trim();
