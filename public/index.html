@@ -112,29 +112,31 @@
     let selectedType = null;
 
    function setType(type) {
-    selectedType = type;
-    document.querySelectorAll('.type-selector').forEach(el => {
-      el.classList.remove('selected');
-    });
-    const selectedImg = document.querySelector(`img[onclick="setType('${type}')"]`);
-    if (selectedImg) selectedImg.classList.add('selected');
-  
-    // ✴️ 반짝임 효과 여러 개 생성
-    const container = document.getElementById("mainUI");
-    for (let i = 0; i < 6; i++) {
-      const star = document.createElement("div");
-      star.className = "sparkle";
-      star.textContent = "✴︎"; // 또는 ✨, 💫 도 가능
-  
-      // 랜덤 위치 지정 (약간 퍼지게)
-      star.style.top = `${selectedImg.offsetTop + Math.random() * 60}px`;
-      star.style.left = `${selectedImg.offsetLeft + Math.random() * 60}px`;
-  
-      container.appendChild(별);
-  
-      setTimeout(() => star.remove(), 1000); // 1초 후 제거
-    }
+  selectedType = type;
+
+  // 반짝임 기준이 될 DOM 요소
+  const targetEl = type === 'F' ? document.getElementById("FZone") : document.getElementById("TZone");
+
+  // ✴️ 반짝임 효과 여러 개 생성
+  const container = document.getElementById("mainUI");
+  for (let i = 0; i < 6; i++) {
+    const star = document.createElement("div");
+    star.className = "sparkle";
+    star.textContent = "✴︎";
+
+    // 위치 계산 (공룡 선택 영역 기준 + 약간 랜덤)
+    const rect = targetEl.getBoundingClientRect();
+    const x = rect.left + Math.random() * rect.width;
+    const y = rect.top + Math.random() * rect.height;
+
+    star.style.left = `${x}px`;
+    star.style.top = `${y}px`;
+
+    container.appendChild(별);
+    setTimeout(() => star.remove(), 1000);
   }
+}
+
 
 
     // ✴︎ 마법 효과 생성 함수
