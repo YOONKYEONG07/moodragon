@@ -10,67 +10,68 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: #8bdaff;
+      width: 100%;
       font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
       overflow: hidden;
     }
 
-    #advisorImg {
+    #answer-container {
       position: absolute;
-      left: 100px;
-      bottom: 0;
-      width: 350px;
-    }
-
-    #answer {
-      position: absolute;
-      right: 100px;
-      top: 120px;
+      top: 100px;
+      right: 80px;
+      width: 320px;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 16px;
       padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    #answer {
       font-size: 1rem;
       line-height: 1.7;
-      width: 300px;
-      text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 16px;
     }
 
     #goTalismanBtn {
-      position: absolute;
-      right: 100px;
-      bottom: 60px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <img id="advisorImg" class="hidden" alt="공룡 조언자" />
-  <div id="answer" class="hidden"></div>
-
-  <button id="goTalismanBtn"
-    onclick="goToTalisman()"
-    class="px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
-    오늘의 부적 받으러가기
-  </button>
+  <div id="answer-container" class="hidden">
+    <div id="answer"></div>
+    <button id="goTalismanBtn"
+      onclick="goToTalisman()"
+      class="px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
+      오늘의 부적 받으러가기
+    </button>
+  </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const answer = localStorage.getItem("gptAnswer");
       const type = localStorage.getItem("userType");
 
+      // 배경 이미지 설정
+      if (type === 'F') {
+        document.body.style.backgroundImage = "url('adviceF.png')";
+      } else {
+        document.body.style.backgroundImage = "url('adviceT.png')";
+      }
+
+      // GPT 답변 출력
       if (answer) {
-        document.getElementById("gptAnswer")?.remove(); // 혹시 이전 잔재 제거
         document.getElementById("answer").textContent = answer;
-        document.getElementById("advisorImg").src = type === 'F' ? "adviceF.png" : "adviceT.png";
       } else {
         document.getElementById("answer").textContent = "답변을 불러오는 데 실패했어요 😢";
       }
 
-      document.getElementById("answer").classList.remove("hidden");
-      document.getElementById("advisorImg").classList.remove("hidden");
+      document.getElementById("answer-container").classList.remove("hidden");
     });
 
     function goToTalisman() {
