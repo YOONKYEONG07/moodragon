@@ -41,6 +41,24 @@
         transform: scale(0.8) translateY(-50px);
       }
     }
+    @keyframes sparkle {
+      0% {
+        opacity: 1;
+        transform: scale(0.5) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5) translateY(-50px);
+      }
+    }
+
+.sparkle {
+  position: absolute;
+  color: gold;
+  font-size: 24px;
+  animation: sparkle 1s ease-out forwards;
+  pointer-events: none;
+}
 
     .magic-star {
       position: absolute;
@@ -93,28 +111,31 @@
   <script>
     let selectedType = null;
 
-    function setType(type) {
-      selectedType = type;
-    
-      const FZone = document.getElementById("FZone");
-      const TZone = document.getElementById("TZone");
-    
-      FZone.classList.remove("sparkle-effect");
-      TZone.classList.remove("sparkle-effect");
-    
-      const zone = type === 'F' ? FZone : TZone;
-      zone.classList.add("sparkle-effect");
-    
-      setTimeout(() => {
-        zone.classList.remove("sparkle-effect");
-      }, 1200);
-    
-      // ✴︎ 마법 효과
-      const rect = zone.getBoundingClientRect();
-      const starX = rect.left + rect.width / 2;
-      const starY = rect.top;
-      createMagicEffect(starX, starY);
+   function setType(type) {
+    selectedType = type;
+    document.querySelectorAll('.type-selector').forEach(el => {
+      el.classList.remove('selected');
+    });
+    const selectedImg = document.querySelector(`img[onclick="setType('${type}')"]`);
+    if (selectedImg) selectedImg.classList.add('selected');
+  
+    // ✴️ 반짝임 효과 여러 개 생성
+    const container = document.getElementById("mainUI");
+    for (let i = 0; i < 6; i++) {
+      const star = document.createElement("div");
+      star.className = "sparkle";
+      star.textContent = "✴︎"; // 또는 ✨, 💫 도 가능
+  
+      // 랜덤 위치 지정 (약간 퍼지게)
+      star.style.top = `${selectedImg.offsetTop + Math.random() * 60}px`;
+      star.style.left = `${selectedImg.offsetLeft + Math.random() * 60}px`;
+  
+      container.appendChild(별);
+  
+      setTimeout(() => star.remove(), 1000); // 1초 후 제거
     }
+  }
+
 
     // ✴︎ 마법 효과 생성 함수
     function createMagicEffect(x, y) {
