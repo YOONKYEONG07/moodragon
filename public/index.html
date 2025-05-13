@@ -28,16 +28,31 @@
       animation: moveRight 6s linear forwards;
     }
 
-    @keyframes sparkle {
-      0%   { box-shadow: 0 0 0px #ffd700; }
-      50%  { box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700; }
-      100% { box-shadow: 0 0 0px #ffd700; }
+   @keyframes magicSparkle {
+      0% {
+        opacity: 1;
+        transform: scale(0.5) translateY(0);
+      }
+      50% {
+        transform: scale(1.2) translateY(-30px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+      }
     }
+
+    .magic-star {
+      position: absolute;
+      color: #ffd700;
+      font-size: 24px;
+      animation: magicSparkle 1s ease-out forwards;
+      pointer-events: none;
+      z-index: 50;
+    }
+
     
-    .sparkle-effect {
-      animation: sparkle 1.5s ease-in-out;
-      border-radius: 12px;
-    }
+    
       
 
   </style>
@@ -84,19 +99,37 @@
       const FZone = document.getElementById("FZone");
       const TZone = document.getElementById("TZone");
     
-      // 효과 초기화
       FZone.classList.remove("sparkle-effect");
       TZone.classList.remove("sparkle-effect");
     
-      // 클릭된 쪽에 반짝이 효과 일시 적용
       const zone = type === 'F' ? FZone : TZone;
       zone.classList.add("sparkle-effect");
     
-      // 효과가 끝나면 자동 제거 (1.5초 뒤)
       setTimeout(() => {
         zone.classList.remove("sparkle-effect");
-      }, 1500);
+      }, 1200);
+    
+      // ✴︎ 마법 효과
+      const rect = zone.getBoundingClientRect();
+      const starX = rect.left + rect.width / 2;
+      const starY = rect.top;
+      createMagicEffect(starX, starY);
     }
+
+    // ✴︎ 마법 효과 생성 함수
+    function createMagicEffect(x, y) {
+      const star = document.createElement('div');
+      star.textContent = '✴︎';
+      star.className = 'magic-star';
+      star.style.left = x + 'px';
+      star.style.top = y + 'px';
+      document.body.appendChild(star);
+    
+      setTimeout(() => {
+        star.remove();
+      }, 1000);
+    }
+
 
 
     async function submitQuestion() {
