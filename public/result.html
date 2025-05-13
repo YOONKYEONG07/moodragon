@@ -20,27 +20,29 @@
       align-items: center;
     }
 
-    #answer {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      padding: 16px;
-      font-size: 1rem;
-      line-height: 1.6;
-      max-width: 320px;
-      text-align: left;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      position: relative;
-    }
+   #answer {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 280px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
-    #answer::before {
-      content: "";
-      position: absolute;
-      bottom: -12px;
-      left: 30px;
-      border-width: 12px;
-      border-style: solid;
-      border-color: rgba(255,255,255,0.85) transparent transparent transparent;
-    }
+#answer::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent rgba(255,255,255,0.85) transparent transparent;
+}
   </style>
 </head>
 <body>
