@@ -92,28 +92,26 @@
   <script>
     let selectedType = null;
 
+    // ✴︎ 마법 효과 여러 개 만들기
     function setType(type) {
       selectedType = type;
-
+    
       const FZone = document.getElementById("FZone");
       const TZone = document.getElementById("TZone");
-
-      FZone.classList.remove("sparkle-effect");
-      TZone.classList.remove("sparkle-effect");
-
+    
       const zone = type === 'F' ? FZone : TZone;
-      zone.classList.add("sparkle-effect");
-
-      setTimeout(() => {
-        zone.classList.remove("sparkle-effect");
-      }, 1200);
-
-      // ✴︎ 마법 효과
-      const rect = zone.getBoundingClientRect();
-      const starX = rect.left + rect.width / 2;
-      const starY = rect.top;
-      createMagicEffect(starX, starY);
+    
+      // 여러 ✴︎ 생성 (연속적으로 도도독 나오게)
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const rect = zone.getBoundingClientRect();
+          const starX = rect.left + rect.width / 2 + (Math.random() * 40 - 20); // 퍼지게
+          const starY = rect.top + Math.random() * 50;
+          createMagicEffect(starX, starY);
+        }, i * 100); // 0ms, 100ms, 200ms, ...
+      }
     }
+
 
     // ✴︎ 마법 효과 생성 함수
     function createMagicEffect(x, y) {
