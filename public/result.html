@@ -10,13 +10,14 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: #8bdaff;
+      background-color: transparent; /* 파란색 없앰 */
       font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
     }
+
 
     #advisorImg {
       width: 180px;
@@ -46,7 +47,6 @@
   </style>
 </head>
 <body>
-  <img id="advisorImg" class="hidden" alt="공룡 조언자" />
   <div id="gptAnswer" class="hidden"></div>
 
   <button onclick="goToTalisman()" class="mt-6 px-4 py-2 bg-purple-400 text-white rounded font-bold shadow-md">
@@ -56,16 +56,19 @@
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const answer = localStorage.getItem("gptAnswer");
-      const type = localStorage.getItem("userType");
-
+      const type = localStorage.getItem("userType");  
+    
+      const advisorImg = type === 'F' ? "adviceF.png" : "adviceT.png";
+      document.body.style.backgroundImage = `url('${advisorImg}')`;
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+      document.body.style.backgroundRepeat = "no-repeat";
+    
+      // 텍스트 표시
       if (answer) {
         document.getElementById("gptAnswer").textContent = answer;
-        document.getElementById("gptAnswer").classList.remove("hidden");
-        document.getElementById("advisorImg").src = type === 'F' ? "adviceF.png" : "adviceT.png";
-        document.getElementById("advisorImg").classList.remove("hidden");
       } else {
         document.getElementById("gptAnswer").textContent = "답변을 불러오는 데 실패했어요 😢";
-        document.getElementById("gptAnswer").classList.remove("hidden");
       }
     });
 
