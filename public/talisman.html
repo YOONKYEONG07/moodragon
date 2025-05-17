@@ -12,8 +12,9 @@
       background-repeat: no-repeat;
       min-height: 100vh;
       font-family: 'Arial', sans-serif;
-      text-align: center;
       padding-top: 60px;
+      margin: 0;
+      position: relative;
     }
 
     .talisman-btn {
@@ -34,29 +35,26 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
-
-    #talismanImage {
-      margin-top: 30px;
-      max-width: 300px;
-    }
   </style>
 </head>
 <body>
-  <body>
-  <h1 class="text-2xl font-bold mb-4">오늘의 부적을 선택해보세요!</h1>
+  <h1 class="text-2xl font-bold mb-4 text-center">오늘의 부적을 선택해보세요!</h1>
 
-    <!-- 부적 버튼들 -->
-    <button class="talisman-btn absolute" style="top: 275px; left: 170px;" onclick="showTalisman('행운')">행운</button>
-    <button class="talisman-btn absolute" style="top: 275px; left: 380px;" onclick="showTalisman('성적')">성적</button>
-    <button class="talisman-btn absolute" style="top: 530px; left: 170px;" onclick="showTalisman('건강')">건강</button>
-    <button class="talisman-btn absolute" style="top: 530px; left: 380px;" onclick="showTalisman('금전')">금전</button>
-  </div>
+  <!-- 부적 버튼들 (배경 위 절대 위치) -->
+  <button class="talisman-btn absolute" style="top: 275px; left: 170px;" onclick="showTalisman('행운')">행운</button>
+  <button class="talisman-btn absolute" style="top: 275px; left: 380px;" onclick="showTalisman('성적')">성적</button>
+  <button class="talisman-btn absolute" style="top: 530px; left: 170px;" onclick="showTalisman('건강')">건강</button>
+  <button class="talisman-btn absolute" style="top: 530px; left: 380px;" onclick="showTalisman('금전')">금전</button>
 
-  <!-- 선택된 부적 이미지 표시 -->
-  <img id="talismanImage" src="" alt="" class="mx-auto hidden mt-6 max-w-xs" />
+  <!-- 선택된 부적 이미지 (오른쪽 고정) -->
+  <img id="talismanImage" src="" alt="" 
+       class="hidden"
+       style="position: absolute; top: 200px; right: 80px; max-width: 200px;" />
 
-  <!-- 다운로드 버튼 -->
-  <button id="downloadBtn" onclick="downloadImage()" class="talisman-btn hidden mt-4">
+  <!-- 다운로드 버튼 (오른쪽 고정) -->
+  <button id="downloadBtn" onclick="downloadImage()" 
+          class="talisman-btn hidden"
+          style="position: absolute; top: 430px; right: 80px;">
     이미지 저장하기
   </button>
 
